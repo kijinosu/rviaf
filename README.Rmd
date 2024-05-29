@@ -20,30 +20,37 @@ require(viafr)
 
 # viafr <img src="man/figures/logo.png" align="right" width="120" />
 
+<!--
 [![Lifecycle badge](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3265046.svg)](https://doi.org/10.5281/zenodo.3265046)
 [![CRAN badge](http://www.r-pkg.org/badges/version/viafr)](https://cran.r-project.org/package=viafr)
 [![Travis CI build status](https://travis-ci.org/stefanieschneider/viafr.svg?branch=master)](https://travis-ci.org/stefanieschneider/viafr)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/stefanieschneider/viafr?branch=master&svg=true)](https://ci.appveyor.com/project/stefanieschneider/viafr)
 [![Coverage status](https://codecov.io/github/stefanieschneider/viafr/coverage.svg?branch=master)](https://codecov.io/github/stefanieschneider/viafr?branch=master)
+-->
 
 ## Overview
 
-This R package uses the VIAF (Virtual International Authority File) API. VIAF is an OCLC service that combines multiple LAM (Library, Archive, and Museum) name authority files into a single name authority service. It thus provides direct access to linked names for the same entity across the world's major name authority files, including national and regional variations in language, character set, and spelling. For more information go to https://viaf.org/.
+This R package is forked from Stefanie Schneider's original viafr package at [GitHub](https://github.com/stefanieschneider/viafr).
+The objective is to extend the original package to enable discovery of social networks of coauthors from VIAF clusters. 
+VIAF is an OCLC service that combines multiple LAM (Library, Archive, and Museum) name authority files into a single name authority service.
+It thus provides direct access to linked names for the same entity across the world's major name authority files, including national and regional
+variations in language, character set, and spelling. For more information go to https://viaf.org/.
 
+This R package uses the VIAF (Virtual International Authority File) API. 
 ## Installation
 
-You can install the released version of viafr from [CRAN](https://CRAN.R-project.org) with:
+You can install the original released version of viafr from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("viafr")
 ```
 
-To install the development version from [GitHub](https://github.com/stefanieschneider/viafr) use:
+To install this development version from [GitHub](https://github.com/kijinosu/viafr) use:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("stefanieschneider/viafr")
+devtools::install_github("kijinosu/viafr")	
 ```
 
 ## Usage
