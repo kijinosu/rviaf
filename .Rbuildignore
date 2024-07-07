@@ -12,3 +12,5 @@
 ^viafr\.Rcheck$
 ^viafr.*\.tar\.gz$
 ^viafr.*\.tgz$
+^doc$
+^Meta$

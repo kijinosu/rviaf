@@ -1,0 +1,163 @@
+---
+title: "viaf-normalization"
+author: Alan Engel
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+lang: en-us
+output: rmarkdown::html_vignette
+bibliography:
+- viaf-normalization.bib
+link-citations: yes
+vignette: >
+  %\VignetteIndexEntry{viaf-normalization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, warning=FALSE}
+library(viafr)
+library(rnaco)
+library(dplyr)
+library(magrittr)
+```
+
+```{r caches, echo=FALSE}
+cache <- file.path(getwd(),"Cache")
+if(!dir.exists(cache)) dir.create(cache)
+cache <- file.path(cache ,"Session20240707")
+if(!dir.exists(cache)) dir.create(cache)
+intercache <- file.path(cache,"intercache")
+if(!dir.exists(intercache )) dir.create(intercache )
+dnldcache <- file.path(cache,"Downloads")
+if(!dir.exists(dnldcache )) dir.create(dnldcache )
+```
+
+# Name information in the form of named lists
+
+With viafr `r packageVersion("viafr")`, name data is retrieved from viaf.xml files
+in the form of named lists. This vignette works through this and functionality
+for working with these named lists.
+
+## Background
+
+The NACO Authority Comparison Rules[@pcc2009authority][@pcc2020authority][@hickey2011naco]
+call for subfields of x400 fields to be normalized individually. This requirement prompted rewriting the
+function viafxml2df() and the xslt file, vc_names.xsl, to return tibbles with
+named lists in the dispName column.
+
+### Test set
+
+The sibling package rnaco contains copies of test datasets of that the Library of Congress's
+NACO CJK Funnel References Project[@naco2019naco] prepared as part of its
+[CJK NACO Project](https://www.loc.gov/aba/pcc/naco/CJK.html). Fetch a set of
+records that have been proofread for RDA compliance.
+
+```{r fetchtestrecords}
+rdayes <- rnaco::cjkextractja %>% dplyr::filter(rda == "Y")
+ncuts <- 10
+cutgap <- as.integer(nrow(rdayes)/ncuts)
+testset <- rdayes %>%
+        dplyr::filter(row_number() %% cutgap == 0) %>%
+        dplyr::select(lccn,tag100_field,tag400_CJK,rda)
+testset %>% knitr::kable(format="html")
+```
+
+The tag100_field shows the subfield structure of [MARC Field 100 entries](https://www.loc.gov/marc/bibliographic/bd100.html).
+
+### Corresponding VIAF records
+
+To get the corresponding VIAF records, 
+
+```{r fn_getviafid_lccn, echo=FALSE}
+getviafid_lccn <- function(lccns = NULL, cache = tempdir()) {
+    library(xml2)
+    library(tibble)
+    library(stringi)
+    dfiles <- file.path(cache,paste0(lccns,".html",sep=""))
+    url <- paste0("https://viaf.org/viaf/lccn/",tolower(lccns),sep="")
+    results <- curl::multi_download(url, dfiles)
+    viafids <- stringi::stri_match_first_regex(results$url,pattern="https://viaf.org/viaf/(\\d++)/")[,2]
+    tb <- tibble(lccn = lccns, viafID = viafids)
+    return(tb)
+}
+```
+```{r getviafid_lccn}
+lcvs <- testset %>% 
+	mutate(viafr::getviafid_lccn(lccn)) %>%
+	select(lccn,tag100_field,viafID)
+lcvs %>% knitr::kable(format="html")
+```
+
+### Fetch tag 400 data
+
+Now fetch the tag 400 data contributed by the Library of Congress (LC). 
+Just display the top few rows.
+
+```{R fetchnames, R.options = list(width = 400)}
+vnames <- viafr::cluster_names(lcvs$viafID, cache=dnldcache , intercache=intercache )
+lcnames <- vnames  %>% 
+    dplyr::filter(tag == '400' & source == 'LC') %>% 
+    dplyr::select(viafID, normName, dispName) %>% 
+    mutate(tag400_subfields = lapply(dispName, function(v) {
+	ns <- names(v)
+	vals <- unlist(v)
+	tb <- tibble(ns,vals) %>%
+		mutate(members = paste0(ns,":",vals,sep="")) %>%
+		select(members) %>% unlist()
+	paste(tb,collapse="<br>")
+	}), .before = normName ) 
+head(lcnames) %>% knitr::kable(format="html", escape=F)
+```
+
+Note that 'normName' is the normalized name as found in the VIAF xml record. 
+
+### Join VIAF data with LC data
+
+Join these with the lccns. Drop dispName for readability.
+
+From left to right:
+
+* 'lccn' is the Library of Congress control number from NACO CJK Funnel References Project's
+dataset of Japanese names[@naco2019naco].
+* 'tag100_field' is the personal name heading (please see the
+[MARC Standard](https://www.loc.gov/marc/authority/ad100.html)). The $a and $d subfields
+in MARC21 format can be observed in this column.
+* 'viafID' is the VAIF cluster identifier obtained from VIAF.
+* 'tag400_subfields' is the [400 - See From Tracing-Personal Name](https://www.loc.gov/marc/authority/ad400.html)
+record as appears in the [VIAF cluster xml](https://viaf.org/viaf/4308165573987037800003/viaf.xml). 
+Please see the [MARC Concise Formats](https://www.loc.gov/marc/MARC_2012_Concise_PDF/Part4_Authority.pdf#page=63){target="_blank"}
+for details.
+* 'normName' is the text from the <ns1:normalized> element of the VIAF cluster xml. This
+is the form that is to be targeted in this project.
+
+
+```{R joinlccns, R.options = list(width = 300)}
+normdisp <- dplyr::inner_join(lcvs, lcnames, by = join_by(viafID))
+normdisp %>% select(-dispName) %>% knitr::kable(format="html", escape=F)
+```
+
+Try rnaco::naco_tranform()
+
+```{r rnaco1}
+selection<-c("a","b","c","d")
+rnacores <- normdisp %>% 
+  mutate(rnaco = lapply(dispName, function(v){
+    ns <- names(v)
+    vals <-unlist(ifelse(names(v) %in% selection, rnaco::naco_transform(v,firstcomma=FALSE), v))
+    tb <- tibble(ns,vals) %>%
+      mutate(members = paste0(ns,":",vals,sep="")) %>%
+      select(members) %>% unlist()
+    paste(tb,collapse="<br>")
+    }))
+rnacores %>% select(lccn, tag100_field, tag400_subfields, rnaco, normName) %>% 
+              knitr::kable(format="html", escape=F)
+```
+
+
+# References

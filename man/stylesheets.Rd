@@ -10,9 +10,10 @@
 \alias{vc_ISBNs}
 \alias{vc_jointcorps}
 \alias{vc_jointpersons}
-\alias{vc_viaflinks}
 \alias{vc_names}
 \alias{vc_titles}
+\alias{vc_viaflinks}
+\alias{vp21_jointpersons}
 \title{Get xslt stylesheet}
 \format{
 `get_stylesheet_extdata` - path to stylesheet
@@ -38,14 +39,16 @@ of class character of length 1.
 'vc_jointpersons' An xsl stylesheet as an object
 of class character of length 1.
 
-'vc_viaflinks' An xsl stylesheet as an object
-of class character of length 1.
-
 'vc_names' An xsl stylesheet as an object
 of class character of length 1.
 
 'vc_titles' An xsl stylesheet as an object
 of class character of length 1.
+
+'vc_viaflinks' An xsl stylesheet as an object
+of class character of length 1.
+
+An object of class \code{character} of length 1.
 }
 \usage{
 get_stylesheet_extdata(name = NULL)
@@ -64,11 +67,13 @@ vc_jointcorps
 
 vc_jointpersons
 
-vc_viaflinks
-
 vc_names
 
 vc_titles
+
+vc_viaflinks
+
+vp21_jointpersons
 }
 \arguments{
 \item{name}{The name of the stylesheet.}
@@ -260,42 +265,49 @@ processDate="2024-05-01 03:37:00.178212">
 </jointpersons>
 }
 
-'vc_viaflinks' produces an xml file with multiple rows. These links
-make up the VIAF cluster.
-Example:
-\preformatted{
-<viaflinks viafid="2556873" viafrVersion="0.4.1"
-processDate="2024-05-01 03:40:28.592271">
-<row>
-<viafID class="character">2556873</viafID>
-<viafType class="character">Personal</viafType>
-<namevalue class="character">Abel, Robert Berger</namevalue>
-<tag class="character">200</tag>
-<fromSource class="character">BNF</fromSource>
-<toSource class="character">DNB</toSource>
-<matchtype class="character">forced single date</matchtype>
-<viaf-update class="POSIXct">2024-01-21T21:31:37.205257+00:00</viaf-update>
-</row>
-...
-</viaflinks>
-}
-
-'vc_names' produces an xml file with multiple rows. The 'inCluster'
+'vc_names' produces an xml file with multiple rows. The 'preferred'
 variable is TRUE if a preferred form, FALSE if an alternate form.
-Example:
+
+When there is no normalized form in the viaf.xml, it is computed
+in viafxml2df.
+
+In the following examples of stylesheet output, the top example
+is of a ns1:mainHeadingEl element. This has no normalized form,
+so the ns1:datafield element in the viaf.xml is simply copied
+for downstream processing. The bottom example is a normalized
+form that was in ns1:datafield/ns1:normalized element in the viaf.xml.
+
 \preformatted{
-<names viafid="2556873" viafrVersion="0.4.1"
-processDate="2024-05-01 04:58:49.644222">
+ <row>
+   <viafID ct="character">103358509</viafID>
+   <viafType ct="character">Personal</viafType>
+   <preferred ct="logical">TRUE</preferred>
+   <tag ct="character">100</tag>
+   <normName ct="character" postnm="TRUE" src="BIBSYS">
+     <datafield dtype="MARC21" ind1="1" ind2=" " tag="100">
+       <subfield code="a">Kennedy, Robert F.</subfield>
+       <subfield code="d">1954 -</subfield>
+     </datafield>
+   </normName>
+   <dispName ct="character">Kennedy, Robert F. 1954 -</dispName>
+   <source ct="character">BIBSYS</source>
+   <linkcount ct="integer">22</linkcount>
+   <viaf-update ct="POSIXct">2024-05-17T06:03:32.847036+00:00</viaf-update>
+   <accessed ct="POSIXct">2024-05-24 00:18:40.756291</accessed>
+ </row>
+...
 <row>
-<viafID class="character">2556873</viafID>
-<viafType class="character">Personal</viafType>
-<inCluster class="logical">TRUE</inCluster>
-<tag class="character">200</tag>
-<namevalue class="character">Abel, Robert Berger</namevalue>
-<source class="character">BNF</source>
-<linkcount class="integer">7</linkcount>
-<viaf-update class="POSIXct">2024-01-21T21:31:37.205257+00:00</viaf-update>
-</row>
+   <viafID ct="character">103358509</viafID>
+   <viafType ct="character">Personal</viafType>
+   <preferred ct="logical">FALSE</preferred>
+   <tag ct="character">400</tag>
+   <normName ct="character">kennedy robert f jr</normName>
+   <dispName ct="character">Kennedy, Robert F. Jr</dispName>
+   <source ct="character">ISNI</source>
+   <linkcount ct="integer">0</linkcount>
+   <viaf-update ct="POSIXct">2024-05-17T06:03:32.847036+00:00</viaf-update>
+   <accessed ct="POSIXct">2024-05-24 00:18:40.756291</accessed>
+ </row>
 ...
 </names>
 }
@@ -321,6 +333,28 @@ May 8-10, 1989 in New York
 ...
 </titles>
 }
+
+'vc_viaflinks' produces an xml file with multiple rows. These links
+make up the VIAF cluster.
+Example:
+\preformatted{
+<viaflinks viafid="2556873" viafrVersion="0.4.1"
+processDate="2024-05-01 03:40:28.592271">
+<row>
+<viafID class="character">2556873</viafID>
+<viafType class="character">Personal</viafType>
+<namevalue class="character">Abel, Robert Berger</namevalue>
+<tag class="character">200</tag>
+<fromSource class="character">BNF</fromSource>
+<toSource class="character">DNB</toSource>
+<matchtype class="character">forced single date</matchtype>
+<viaf-update class="POSIXct">2024-01-21T21:31:37.205257+00:00</viaf-update>
+</row>
+...
+</viaflinks>
+}
+
+'vp21_jointpersons' produces an xml file with multiple rows.
 }
 \seealso{
 \link{cluster_summary}
@@ -337,10 +371,10 @@ May 8-10, 1989 in New York
 
 \link{cluster_jointpersons}
 
-\link{cluster_links}
-
 \link{cluster_names}
 
 \link{cluster_titles}
+
+\link{cluster_links}
 }
 \keyword{xsl}

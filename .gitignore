@@ -1,7 +1,3 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-viafr.Rcheck/
-viafr*.tar.gz
-viafr*.tgz
+inst/doc
+/doc/
+/Meta/

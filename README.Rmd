@@ -20,14 +20,6 @@ require(viafr)
 
 # viafr <img src="man/figures/logo.png" align="right" width="120" />
 
-<!--
-[![Lifecycle badge](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3265046.svg)](https://doi.org/10.5281/zenodo.3265046)
-[![CRAN badge](http://www.r-pkg.org/badges/version/viafr)](https://cran.r-project.org/package=viafr)
-[![Travis CI build status](https://travis-ci.org/stefanieschneider/viafr.svg?branch=master)](https://travis-ci.org/stefanieschneider/viafr)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/stefanieschneider/viafr?branch=master&svg=true)](https://ci.appveyor.com/project/stefanieschneider/viafr)
-[![Coverage status](https://codecov.io/github/stefanieschneider/viafr/coverage.svg?branch=master)](https://codecov.io/github/stefanieschneider/viafr?branch=master)
--->
 
 ## Overview
 
@@ -35,9 +27,10 @@ This R package is forked from Stefanie Schneider's original viafr package at [Gi
 The objective is to extend the original package to enable discovery of social networks of coauthors from VIAF clusters. 
 VIAF is an OCLC service that combines multiple LAM (Library, Archive, and Museum) name authority files into a single name authority service.
 It thus provides direct access to linked names for the same entity across the world's major name authority files, including national and regional
-variations in language, character set, and spelling. For more information go to https://viaf.org/.
+variations in language, character set, and spelling. For more information go to [VIAF](https://viaf.org/).
 
 This R package uses the VIAF (Virtual International Authority File) API. 
+
 ## Installation
 
 You can install the original released version of viafr from [CRAN](https://CRAN.R-project.org) with:
@@ -53,50 +46,6 @@ To install this development version from [GitHub](https://github.com/kijinosu/vi
 devtools::install_github("kijinosu/viafr")	
 ```
 
-## Usage
-
-The viafr package functions use the VIAF (Virtual International Authority File) API. Optional VIAF API query parameters can be passed into each function. For information on supported query parameters, please see https://www.oclc.org/developer/api/oclc-apis/viaf.en.html.
-
-`viaf_get()` returns a tibble, where each row contains information about the respective VIAF identifier, whereas `viaf_search()` and `viaf_suggest()` each produce a named list of tibbles, with each tibble containing information about the respective search query. The MARC 21 field definitions are used, see, e.g., https://www.loc.gov/marc/bibliographic/.
-
-### Get Data for VIAF Identifier(s)
-
-```{r example_get, message=FALSE, warning=FALSE}
-(result_get <- viaf_get("15873"))
-
-# Retrieve a tibble of all source identifiers
-(source_ids <- dplyr::pull(result_get, source_ids) %>% purrr::pluck(1))
-
-# Retrieve a tibble of data from all sources
-(text <- dplyr::pull(result_get, text) %>% purrr::pluck(1))
-
-# Aggregate name variants and show dominant ones 
-# (subfield code `a` declares personal names)
-dplyr::mutate(text, name_variant = a) %>% dplyr::group_by(name_variant) %>% 
-  dplyr::summarise(count = sum(count)) %>% dplyr::filter(count > 9)
-```
-
-### Search VIAF records
-
-```{r example_search, message=FALSE, warning=FALSE}
-(result_search <- viaf_search("Menzel", maximumRecords = 5))
-
-# Retrieve a tibble of all source identifiers
-(source_ids <- dplyr::pull(result_search$`Menzel`, source_ids))
-
-# Retrieve a tibble of data for the second search result
-(text <- dplyr::pull(result_search$`Menzel`, text) %>% purrr::pluck(2))
-```
-
-### Suggest VIAF records
-
-```{r example_suggest, message=FALSE, warning=FALSE}
-(result_suggest <- viaf_suggest("austen"))
-
-# Retrieve source identifiers for the most relevant search result
-dplyr::filter(result_suggest$`austen`, score > 10000) %>%
-  dplyr::pull(source_ids) %>% purrr::pluck(1)
-```
 
 ## Contributing
 

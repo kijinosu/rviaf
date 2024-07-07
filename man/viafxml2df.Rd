@@ -11,11 +11,14 @@ viafxml2df(x, xslt=NULL, ...)
 
 \item{xslt}{Loaded xslt stylesheet}
 
+\item{pattern}{{Regular expression pattern for tranforming xslt output for name
+authority datafields into named lists.}}
+
 \item{intercache}{Directory in which to story intermediate xml
 output from transform.}
 }
 \value{
-The target tibble.
+The target tibble containing columns determined by the xslt transform.
 }
 \description{
 'viafxml2df()' reads xml downloaded from viaf.org, transforms it to an
@@ -23,4 +26,17 @@ xml, and from that xml produces
 a tibble. This function draws on Dominic Bordelon's
 read_marcxml() function in
 \href{https://github.com/dojobo/marc21r}{__marc21r__}.
+
+\preformatted{
+<ns1:x400>
+<ns1:datafield dtype="MARC21" ind1="1" ind2=" " tag="400">
+<ns1:subfield code="a">千葉, 玄彌</ns1:subfield>
+<ns1:normalized>仟叶 伭弥</ns1:normalized>
+</ns1:datafield>
+<ns1:sources>
+<ns1:s>NII</ns1:s>
+<ns1:sid>NII|DA0067554X</ns1:sid>
+</ns1:sources>
+</ns1:x400>
+}
 }

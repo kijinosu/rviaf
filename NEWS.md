@@ -1,4 +1,13 @@
-# viafr 0.4.2
+# viafr 0.5.2
+
+* add getviafid_lccn
+* add getviafid_sourceids
+
+# viafr 0.4.4
+
+* Add viaf_normalize
+
+# viafr 0.4.3
 
 * Functionality for searching coauthor VIAF clusters
 
