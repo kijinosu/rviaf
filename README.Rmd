@@ -24,8 +24,6 @@ options(width = "100")
 require(magrittr)
 ```
 
-# rviaf - Another R client for VIAF cluster and authority records
-
 ## Overview
 
 This R package is forked from Stefanie Schneider's original viafr package at [GitHub](https://github.com/stefanieschneider/viafr)
@@ -61,7 +59,7 @@ devtools::install_github("stefanieschneider/viafr")
 
 ## Key background work
 
-[@hajra2020content] proposed using globally known persistent identifiers, such as VIAF IDs,
+Arben Hajra [@hajra2020content] proposed using globally known persistent identifiers, such as VIAF IDs,
 in an algorithmic approach to disambiguate authors. Particularly relevant is
 Hajra's use of co-author data from VIAF clusters.
 
