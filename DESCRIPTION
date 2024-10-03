@@ -1,20 +1,20 @@
-Package: viafr
+Package: rviaf
 Title: (fork) Interface to the 'VIAF' ('Virtual International Authority File') API
-Version: 0.5.2
+Version: 0.5.3
 Authors@R: c(
+    person('Alan Engel', email = 'alan@ttcrossroads.net', role = c('aut'),
+            comment = c(ORCID = "0000-0003-0070-2347")),
     person('Stefanie Schneider', 
             email = 'stefanie.schneider@itg.uni-muenchen.de', role = c('cre', 'aut'),
-            comment = c(ORCID = "0000-0003-4915-6949")),
-    person('Alan Engel', email = 'alan@ttcrossroads.net', role = c('aut'),
-            comment = c(ORCID = "0000-0003-0070-2347")))
+            comment = c(ORCID = "0000-0003-4915-6949")))
 Maintainer: Alan Engel <alan@ttcrossroads.net>
 Description: Provides direct access to linked names for the same entity across the world's major name authority files, including national and regional variations in language, character set, and spelling. For more information go to <https://viaf.org/>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1
-URL: https://github.com/kijinosu/viafr
-BugReports: https://github.com/kijinosu/viafr/issues
+URL: https://github.com/kijinosu/rviaf
+BugReports: https://github.com/kijinosu/rviaf/issues
 Suggests: 
     testthat (>= 2.1.0),
     roxygen2,

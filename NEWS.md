@@ -1,3 +1,7 @@
+# rviaf 0.5.3
+
+* port from viafr 0.5.2
+
 # viafr 0.5.2
 
 * add getviafid_lccn

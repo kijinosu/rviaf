@@ -38,11 +38,11 @@ cluster_data <- function(viafids = NULL,
 ) {
   style <- xml2::read_xml(xslt)
 
-  viafs <- viafr::viaf_get_cluster(viafidlist = viafids, cache = cache)
+  viafs <- viaf_get_cluster(viafidlist = viafids, cache = cache)
 
   tmpt <- viafs %>%
     map(\(x) xml2::read_xml(x)) %>%
-    map(\(x) viafr::viafxml2df(x, xslt = style, intercache = intercache))  %>%
+    map(\(x) viafxml2df(x, xslt = style, intercache = intercache))  %>%
     dplyr::bind_rows()
 
   vs <- tmpt %>% dplyr::select(viafID) %>% unique()
@@ -84,7 +84,7 @@ cluster_summary <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_summary
+  style <- rviaf::vc_summary
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)
@@ -105,7 +105,7 @@ cluster_sources <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_sources
+  style <- rviaf::vc_sources
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)
@@ -126,7 +126,7 @@ cluster_authorship <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_authorship
+  style <- rviaf::vc_authorship
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)
@@ -147,7 +147,7 @@ cluster_covers <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_covers
+  style <- rviaf::vc_covers
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)
@@ -168,7 +168,7 @@ cluster_ISBNs <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_ISBNs
+  style <- rviaf::vc_ISBNs
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)
@@ -189,7 +189,7 @@ cluster_jointcorps <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_jointcorps
+  style <- rviaf::vc_jointcorps
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)
@@ -210,7 +210,7 @@ cluster_jointpersons <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_jointpersons
+  style <- rviaf::vc_jointpersons
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)
@@ -231,7 +231,7 @@ cluster_links <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_viaflinks
+  style <- rviaf::vc_viaflinks
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)
@@ -252,7 +252,7 @@ cluster_names <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_names
+  style <- rviaf::vc_names
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)
@@ -273,7 +273,7 @@ cluster_titles <- function(viafids = NULL,
   redirectlog = file.path(tempdir(), "redirects.csv"),
   ...
 ) {
-  style <- viafr::vc_titles
+  style <- rviaf::vc_titles
 
   tmpt <- cluster_data(viafids = viafids, xslt = style, t = t, cache = cache,
                        intercache = intercache, redirectlog = redirectlog)

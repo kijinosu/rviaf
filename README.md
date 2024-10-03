@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# viafr <img src="man/figures/logo.png" align="right" width="120" />
+# rviaf
 
 ## Overview
 
@@ -28,17 +28,17 @@ install.packages("viafr")
 ```
 
 To install this development version from
-[GitHub](https://github.com/kijinosu/viafr) use:
+[GitHub](https://github.com/kijinosu/rviaf) use:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("kijinosu/viafr")  
+devtools::install_github("kijinosu/rviaf")  
 ```
 
 ## Contributing
 
 Please report issues, feature requests, and questions to the [GitHub
-issue tracker](https://github.com/stefanieschneider/viafr/issues). We
-have a [Contributor Code of
-Conduct](https://github.com/stefanieschneider/viafr/blob/master/CODE_OF_CONDUCT.md).
+issue tracker](https://github.com/kijinosu/rviaf/issues). We have a
+[Contributor Code of
+Conduct](https://github.com/kijinosu/rviaf/blob/master/CODE_OF_CONDUCT.md).
 By participating in viafr you agree to abide by its terms.
