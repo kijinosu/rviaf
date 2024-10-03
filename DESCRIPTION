@@ -1,11 +1,11 @@
 Package: rviaf
-Title: (fork) Interface to the 'VIAF' ('Virtual International Authority File') API
+Title: (fork of viafr) Interface to the 'VIAF' ('Virtual International Authority File') API
 Version: 0.5.3
 Authors@R: c(
-    person('Alan Engel', email = 'alan@ttcrossroads.net', role = c('aut'),
+    person('Alan Engel', email = 'alan@ttcrossroads.net', role = c('cre','aut'),
             comment = c(ORCID = "0000-0003-0070-2347")),
     person('Stefanie Schneider', 
-            email = 'stefanie.schneider@itg.uni-muenchen.de', role = c('cre', 'aut'),
+            email = 'stefanie.schneider@itg.uni-muenchen.de', role = c('aut'),
             comment = c(ORCID = "0000-0003-4915-6949")))
 Maintainer: Alan Engel <alan@ttcrossroads.net>
 Description: Provides direct access to linked names for the same entity across the world's major name authority files, including national and regional variations in language, character set, and spelling. For more information go to <https://viaf.org/>.
