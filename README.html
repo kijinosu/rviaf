@@ -601,32 +601,194 @@ padding-top: 0px;
 
 <body>
 
+<h1 id="rviaf---another-r-client-for-viaf-cluster-and-authority-records">rviaf
+- Another R client for VIAF cluster and authority records</h1>
+<p>Alan Engel 03 October, 2024</p>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<h1 id="rviaf">rviaf</h1>
+<h1 id="rviaf---another-r-client-for-viaf-cluster-and-authority-records-1">rviaf
+- Another R client for VIAF cluster and authority records</h1>
 <h2 id="overview">Overview</h2>
 <p>This R package is forked from Stefanie Schneider’s original viafr
-package at <a href="https://github.com/stefanieschneider/viafr">GitHub</a>. The
-objective is to extend the original package to enable discovery of
-social networks of coauthors from VIAF clusters. VIAF is an OCLC service
-that combines multiple LAM (Library, Archive, and Museum) name authority
-files into a single name authority service. It thus provides direct
-access to linked names for the same entity across the world’s major name
-authority files, including national and regional variations in language,
-character set, and spelling. For more information go to <a href="https://viaf.org/">VIAF</a>.</p>
+package at <a href="https://github.com/stefanieschneider/viafr">GitHub</a> (<a href="#ref-schneider2024viafr">Schneider 2024</a>). The objective is to
+extend the original package to enable discovery of social networks of
+coauthors from VIAF clusters. VIAF is an OCLC service that combines
+multiple LAM (Library, Archive, and Museum) name authority files into a
+single name authority service. It thus provides direct access to linked
+names for the same entity across the world’s major name authority files,
+including national and regional variations in language, character set,
+and spelling. For more information go to <a href="https://viaf.org/">VIAF</a>.</p>
 <p>This R package uses the VIAF (Virtual International Authority File)
 API.</p>
 <h2 id="installation">Installation</h2>
-<p>You can install the original released version of viafr from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;viafr&quot;</span>)</span></code></pre></div>
 <p>To install this development version from <a href="https://github.com/kijinosu/rviaf">GitHub</a> use:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;kijinosu/rviaf&quot;</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;kijinosu/rviaf&quot;</span>)  </span></code></pre></div>
+<p>You can install the original released version of viafr from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;viafr&quot;</span>)</span></code></pre></div>
+<p>The development version of <code>viafr</code> can be installed from
+<a href="https://github.com/stefanieschneider/viafr">GitHub</a> with</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;stefanieschneider/viafr&quot;</span>) </span></code></pre></div>
+<h2 id="key-background-work">Key background work</h2>
+<p>(<a href="#ref-hajra2020content">Hajra 2020</a>) proposed using
+globally known persistent identifiers, such as VIAF IDs, in an
+algorithmic approach to disambiguate authors. Particularly relevant is
+Hajra’s use of co-author data from VIAF clusters.</p>
+<h2 id="other-related-work">Other related work</h2>
+<ul>
+<li><p><a href="https://github.com/stefanieschneider/viafr">viafr</a> R
+Interface to the VIAF (Virtual International Authority File) API (<a href="#ref-schneider2024viafr">Schneider 2024</a>)</p></li>
+<li><p><a href="https://github.com/njahn82/viaf">viaf</a> R client for
+VIAF (Virtual International Authority File)(<a href="#ref-najko2015">Jahn 2015</a>)</p></li>
+<li><p><a href="https://github.com/jhu-library-applications/vocab-apis">vocab-apis</a>
+Python scripts to pull and convert data between Library of Congress
+vocabularies and other external vocabularies (GeoNames, VIAF, etc) (<a href="#ref-janowiecki2023vocab">Janowiecki 2023</a>)</p></li>
+<li><p><a href="https://github.com/phette23/viaf-npm">VIAF NPM</a>
+JavaScript wrapper for the VIAF API in node (<a href="#ref-phetteplace2014">Phetteplace 2014</a>)</p></li>
+<li><p><a href="https://github.com/ideesculture/ca_viaf">VIAF
+Information Service for CollectiveAccess</a> PHP - Queries the VIAF for
+Personal Names and outputs the first page of hits to choose from. (<a href="#ref-michelin2018">Michelin 2018</a>)</p></li>
+<li><p><a href="https://github.com/notconfusing/viaf-analysis">viaf-analysis</a> R
+- takes result file from parser and make json input to R (<a href="#ref-klein2013viaf">Klein 2013</a>)</p></li>
+<li><p><a href="https://github.com/notconfusing/wikidataSex">wikidataSex</a> Java,
+Python - for analysing, adding and sourcing sex claims on wikidata
+through VIAF and LCCN (<a href="#ref-klein2013wikidataSex">Klein
+2014</a>)</p></li>
+<li><p><a href="https://github.com/gbv/viaf-jskos">viaf-jskos</a> PHP -
+JSKOS wrapper to Virtual International Authority File (VIAF) (<a href="#ref-voss2017">Voß 2017</a>)</p></li>
+<li><p><a href="https://github.com/hibernator11/matchpoint">MATCHPOINT</a>
+JavaScript - Link author names to VIAF repository (<a href="#ref-candela2016">Candela 2016</a>)</p></li>
+<li><p><a href="https://github.com/CristianCantoro/viafsbn">viafsbn</a>
+Python - Un semplice strumento per cercare da linea di comando codici
+VIAF (OCLC) e SBN (ICCU) (<a href="#ref-consonni2013viafsbn">Consonni
+2013b</a>)</p></li>
+<li><p><a href="https://github.com/CristianCantoro/viaf-sbn_reconciler">viaf-sbn_reconciler</a>
+Python - Reconcile authority control files from VIAF (maintained by
+OCLC) and Italian SBN (maintained by ICCU) (<a href="#ref-consonni2013viaf">Consonni 2013a</a>)</p></li>
+<li><p><a href="https://github.com/cwrc/viaf-entity-lookup">viaf-entity-lookup</a>
+JavaScript - Find entities (people, places, organizations) in VIAF. (<a href="#ref-frizzera2021">Frizzera 2021</a>)</p></li>
+<li><p><a href="https://github.com/kenirwin/viaf-link-quick-statements">viaf-link-quick-statements</a>
+PHP, JavaScript - convert VIAF authority links into importable Wikidata
+QuickStatements (<a href="#ref-irwin2020">Irwin 2020</a>)</p></li>
+<li><p><a href="https://github.com/eichmann/ld4l_services">ld4l_services</a> Java
+- A web app providing name lookup and triple extraction from a number of
+cached sources, including DBpedia, FAST, GeoNames, GRID, and VIAF (<a href="#ref-eichmann2023">Eichmann 2023</a>)</p></li>
+<li><p><a href="https://github.com/angelzazo/wiki_utils">wiki_utils</a>
+Python - Functions to retrieve data from VIAF, BNE, etc. and Wikimedia
+projects (<a href="#ref-zazo2024">Zazo 2024</a>)</p></li>
+</ul>
 <h2 id="contributing">Contributing</h2>
 <p>Please report issues, feature requests, and questions to the <a href="https://github.com/kijinosu/rviaf/issues">GitHub issue
-tracker</a>. We have a <a href="https://github.com/kijinosu/rviaf/blob/master/CODE_OF_CONDUCT.md">Contributor
-Code of Conduct</a>. By participating in viafr you agree to abide by its
+tracker</a>. <a href="https://github.com/kijinosu/rviaf/blob/master/CODE_OF_CONDUCT.md">Contributor
+Code of Conduct</a>. By participating in rviaf you agree to abide by its
 terms.</p>
+<h1 id="references">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-candela2016" class="csl-entry">
+
+<p>Candela, Gustavo. 2016. “MATCHPOINT.” <em>GitHub Repository</em>. <a href="https://github.com/hibernator11/matchpoint">https://github.com/hibernator11/matchpoint</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-consonni2013viaf" class="csl-entry">
+
+<p>Consonni, Cristian. 2013a. “Viaf-Sbn_reconciler.” <em>GitHub
+Repository</em>. <a href="https://github.com/CristianCantoro/viaf-sbn_reconciler">https://github.com/CristianCantoro/viaf-sbn_reconciler</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-consonni2013viafsbn" class="csl-entry">
+
+<p>———. 2013b. “Viafsbn.” <em>GitHub Repository</em>. <a href="https://github.com/CristianCantoro/viafsbn">https://github.com/CristianCantoro/viafsbn</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-eichmann2023" class="csl-entry">
+
+<p>Eichmann, Dave. 2023. “Ld4l_services.” <em>GitHub Repository</em>. <a href="https://github.com/eichmann/ld4l_services">https://github.com/eichmann/ld4l_services</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-frizzera2021" class="csl-entry">
+
+<p>Frizzera, Luciano. 2021. “Viaf-Entity-Lookup.” <em>GitHub
+Repository</em>. <a href="https://github.com/cwrc/viaf-entity-lookup">https://github.com/cwrc/viaf-entity-lookup</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-hajra2020content" class="csl-entry">
+
+<p>Hajra, Arben. 2020. “Content Enrichment of Digital Libraries:
+Methods, Technologies and Implementations.” PhD thesis,
+Christian-Albrecht University of Kiel. <a href="https://macau.uni-kiel.de/servlets/MCRFileNodeServlet/macau_derivate_00002293/dissertation_arben_hajra.pdf">https://macau.uni-kiel.de/servlets/MCRFileNodeServlet/macau_derivate_00002293/dissertation_arben_hajra.pdf</a>.</p>
+</div>
+
+<div id="ref-irwin2020" class="csl-entry">
+
+<p>Irwin, Ken. 2020. “Viaf-Link-Quick-Statements.” <em>GitHub
+Repository</em>. <a href="https://github.com/kenirwin/viaf-link-quick-statements">https://github.com/kenirwin/viaf-link-quick-statements</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-najko2015" class="csl-entry">
+
+<p>Jahn, Najko. 2015. “R Client for VIAF API.” <em>GitHub
+Repository</em>. <a href="https://github.com/njahn82/viaf">https://github.com/njahn82/viaf</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-janowiecki2023vocab" class="csl-entry">
+
+<p>Janowiecki, Michelle. 2023. “Vocab-Apis.” <em>GitHub Repository</em>.
+<a href="https://github.com/jhu-library-applications/vocab-apis">https://github.com/jhu-library-applications/vocab-apis</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-klein2013viaf" class="csl-entry">
+
+<p>Klein, Max. 2013. “Viaf-Analysis.” <em>GitHub Repository</em>. <a href="https://github.com/notconfusing/viaf-analysis">https://github.com/notconfusing/viaf-analysis</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-klein2013wikidataSex" class="csl-entry">
+
+<p>———. 2014. “wikidataSex.” <em>GitHub Repository</em>. <a href="https://github.com/notconfusing/wikidataSex">https://github.com/notconfusing/wikidataSex</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-michelin2018" class="csl-entry">
+
+<p>Michelin, Gautier. 2018. “VIAF NPM.” <em>GitHub Repository</em>. <a href="https://github.com/ideesculture/ca_viaf">https://github.com/ideesculture/ca_viaf</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-phetteplace2014" class="csl-entry">
+
+<p>Phetteplace, Eric. 2014. “VIAF NPM.” <em>GitHub Repository</em>. <a href="https://github.com/phette23/viaf-npm">https://github.com/phette23/viaf-npm</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-schneider2024viafr" class="csl-entry">
+
+<p>Schneider, Stefanie. 2024. “Viafr.” <em>GitHub Repository</em>. <a href="https://github.com/stefanieschneider/viafr">https://github.com/stefanieschneider/viafr</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-voss2017" class="csl-entry">
+
+<p>Voß, Jakob. 2017. “Viaf-Jskos.” <em>GitHub Repository</em>. <a href="https://github.com/gbv/viaf-jskos">https://github.com/gbv/viaf-jskos</a>;
+GitHub.</p>
+</div>
+
+<div id="ref-zazo2024" class="csl-entry">
+
+<p>Zazo, Angel. 2024. “Wiki_utils.” <em>GitHub Repository</em>. <a href="https://github.com/angelzazo/wiki_utils">https://github.com/angelzazo/wiki_utils</a>;
+GitHub.</p>
+</div>
+
+</div>
 
 </body>
 </html>

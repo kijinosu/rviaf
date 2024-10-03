@@ -1,5 +1,12 @@
 ---
 output: github_document
+title: rviaf - Another R client for VIAF cluster and authority records
+author: Alan Engel
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+lang: "en-us"
+output_format: github_document
+bibliography: rviaf.bib
+link-citations: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -17,13 +24,12 @@ options(width = "100")
 require(magrittr)
 ```
 
-# rviaf 
-
+# rviaf - Another R client for VIAF cluster and authority records
 
 ## Overview
 
-This R package is forked from Stefanie Schneider's original viafr package at
-[GitHub](https://github.com/stefanieschneider/viafr).
+This R package is forked from Stefanie Schneider's original viafr package at [GitHub](https://github.com/stefanieschneider/viafr)
+[@schneider2024viafr].
 The objective is to extend the original package to enable discovery of social networks of coauthors from VIAF clusters. 
 VIAF is an OCLC service that combines multiple LAM (Library, Archive, and Museum) name authority files into a single name authority service.
 It thus provides direct access to linked names for the same entity across the world's major name authority files, including national and regional
@@ -31,15 +37,7 @@ variations in language, character set, and spelling. For more information go to 
 
 This R package uses the VIAF (Virtual International Authority File) API. 
 
-
-
 ## Installation
-
-You can install the original released version of viafr from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("viafr")
-```
 
 To install this development version from [GitHub](https://github.com/kijinosu/rviaf) use:
 
@@ -48,10 +46,72 @@ To install this development version from [GitHub](https://github.com/kijinosu/rv
 devtools::install_github("kijinosu/rviaf")	
 ```
 
+You can install the original released version of viafr from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("viafr")
+```
+
+The development version of ```viafr``` can be installed from [GitHub](https://github.com/stefanieschneider/viafr) with
+
+``` r
+# install.packages("devtools")
+devtools::install_github("stefanieschneider/viafr")	
+```
+
+## Key background work
+
+[@hajra2020content] proposed using globally known persistent identifiers, such as VIAF IDs,
+in an algorithmic approach to disambiguate authors. Particularly relevant is
+Hajra's use of co-author data from VIAF clusters.
+
+## Other related work
+
+* [viafr](https://github.com/stefanieschneider/viafr) R Interface to the VIAF (Virtual International
+Authority File) API [@schneider2024viafr]
+
+* [viaf](https://github.com/njahn82/viaf) R client for VIAF (Virtual International Authority File)[@najko2015]
+
+* [vocab-apis](https://github.com/jhu-library-applications/vocab-apis) Python scripts to pull and convert
+data between Library of Congress vocabularies and other external vocabularies (GeoNames, VIAF, etc) [@janowiecki2023vocab]
+
+* [VIAF NPM](https://github.com/phette23/viaf-npm) JavaScript wrapper for the VIAF API in node [@phetteplace2014]
+
+* [VIAF Information Service for CollectiveAccess](https://github.com/ideesculture/ca_viaf) PHP - Queries the VIAF for Personal Names
+and outputs the first page of hits to choose from. [@michelin2018]
+
+* [viaf-analysis](https://github.com/notconfusing/viaf-analysis) R - takes result file from parser and make json input to R [@klein2013viaf]
+
+* [wikidataSex](https://github.com/notconfusing/wikidataSex) Java, Python - for analysing, adding and sourcing sex
+claims on wikidata through VIAF and LCCN [@klein2013wikidataSex]
+
+* [viaf-jskos](https://github.com/gbv/viaf-jskos) PHP - JSKOS wrapper to Virtual International Authority File (VIAF) [@voss2017]
+
+* [MATCHPOINT](https://github.com/hibernator11/matchpoint) JavaScript - Link author names to VIAF repository [@candela2016]
+
+* [viafsbn](https://github.com/CristianCantoro/viafsbn) Python - Un semplice strumento per cercare da linea di comando codici
+VIAF (OCLC) e SBN (ICCU) [@consonni2013viafsbn]
+
+* [viaf-sbn_reconciler](https://github.com/CristianCantoro/viaf-sbn_reconciler) Python - Reconcile authority control files
+from VIAF (maintained by OCLC) and Italian SBN (maintained by ICCU) [@consonni2013viaf]
+
+* [viaf-entity-lookup](https://github.com/cwrc/viaf-entity-lookup) JavaScript - Find entities (people, places, organizations) in VIAF. [@frizzera2021]
+
+* [viaf-link-quick-statements](https://github.com/kenirwin/viaf-link-quick-statements) PHP, JavaScript - convert VIAF authority
+links into importable Wikidata QuickStatements [@irwin2020]
+
+* [ld4l_services](https://github.com/eichmann/ld4l_services) Java - A web app providing name lookup and triple extraction from a
+number of cached sources, including DBpedia, FAST, GeoNames, GRID, and VIAF [@eichmann2023]
+
+* [wiki_utils](https://github.com/angelzazo/wiki_utils) Python - Functions to retrieve data from VIAF, BNE, etc. and Wikimedia projects [@zazo2024]
+
+
 
 ## Contributing
 
-Please report issues, feature requests, and questions to the
-[GitHub issue tracker](https://github.com/kijinosu/rviaf/issues).
-We have a [Contributor Code of Conduct](https://github.com/kijinosu/rviaf/blob/master/CODE_OF_CONDUCT.md).
-By participating in viafr you agree to abide by its terms.
+Please report issues, feature requests, and questions to the 
+[GitHub issue tracker](https://github.com/kijinosu/rviaf/issues). 
+[Contributor Code of Conduct](https://github.com/kijinosu/rviaf/blob/master/CODE_OF_CONDUCT.md). 
+By participating in rviaf you agree to abide by its terms.
+
+# References
